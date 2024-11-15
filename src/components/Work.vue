@@ -102,13 +102,13 @@
     opacity: 0;
   }
   .translate-x-8 {
-    transform: translateX(2rem);
+    transform: translateX(4rem);
   }
   .opacity-100 {
     opacity: 1;
   }
   .translate-x-0 {
-    transform: translateX(0);
+    transform: translateX(2);
   }
   </style>
   
