@@ -1,40 +1,54 @@
 <script setup lang="ts">
-import Clients from './components/Clients.vue';
-import Services from './components/Services.vue';
-import Work from './components/Work.vue';
-import Myself from './components/Myself.vue';
-import WebsiteShine from './components/WebsiteShine.vue';
+import Clients from './components/homepage-components/Clients.vue';
+import Services from './components/homepage-components/Services.vue';
+import Work from './components/homepage-components/Work.vue';
+import Myself from './components/homepage-components/Myself.vue';
+import WebsiteShine from './components/homepage-components/WebsiteShine.vue';
+import Nav from './components/Nav.vue';
 </script>
 
 <template>
   <div class="min-h-screen bg-black text-white">
     <!-- Navbar Section -->
-    <header class="bg-black p-4 fixed w-full top-0 z-50">
-      <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-3xl font-light">Kaspar<span class="text-gray-400">.</span></h1>
-        <nav class="hidden md:flex space-x-6 text-gray-300">
-          <a href="#services" class="hover:text-white transition-colors">SERVICES</a>
-          <a href="#work" class="hover:text-white transition-colors">WORK</a>
-          <a href="#about" class="hover:text-white transition-colors">ABOUT</a>
-          <a href="#blog" class="hover:text-white transition-colors">BLOG</a>
-          <a href="#contact" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">LET'S TALK</a>
-        </nav>
-      </div>
-    </header>
+    <Nav></Nav>
 
-    <!-- Hero Section -->
-    <section class="flex items-center justify-center min-h-screen bg-black" id="hero">
-      <div class="text-center space-y-4">
-        <h2 class="text-4xl md:text-6xl font-light">I'm Kaspar.</h2>
-        <p class="text-gray-400 text-lg">Creative Developer & Designer</p>
-        <button class="mt-4 bg-gray-800 px-6 py-3 rounded-lg text-white hover:bg-gray-700 transition">View My Work</button>
-      </div>
-    </section>
+    <!-- Hero Section with Video Background -->
+    <div class="relative min-h-screen" id="hero">
+      <!-- Video Background -->
+      <video autoplay muted loop class="absolute top-0 left-0 w-full h-full object-cover z-0">
+        <source src="/src/assets/5409425_Coll_wavebreak_Mesh_1920x1080.mov" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-    <Services />
-    <Work />
+      <!-- Content with Blurred Box -->
+      <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
+        <div class=" bg-opacity-30 backdrop-blur-lg p-6 rounded-lg shadow-lg text-white max-w-lg">
+          <h1 class="text-4xl font-bold mb-4">I'm Kaspar</h1>
+          <p class="text-lg text-gray-300">Creative Developer & Designer</p>
+          <button class="mt-4 bg-gray-800 px-6 py-3 rounded-lg text-white hover:bg-gray-700 transition">
+            View My Work
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Sections -->
+    <Services id="services" />
+    <Work id="work" />
     <Clients />
-    <Myself />
+    <Myself id="about" />
     <WebsiteShine />
   </div>
 </template>
+
+<style>
+/* Ensure the video fills the viewport */
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
+</style>
