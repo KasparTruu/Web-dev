@@ -1,4 +1,13 @@
 <script setup>
+function scrollToSection(sectionId) {
+  const target = document.getElementById(sectionId);
+  if (target) {
+    target.scrollIntoView({
+      behavior: 'smooth', // Smooth scrolling
+      block: 'start', // Align to the top of the section
+    });
+  }
+}
 </script>
 
 <template>
@@ -9,13 +18,12 @@
         <a href="#services" class="hover:text-white transition-colors">SERVICES</a>
         <a href="#work" class="hover:text-white transition-colors">WORK</a>
         <a href="#about" class="hover:text-white transition-colors">ABOUT</a>
-        <a href="#blog" class="hover:text-white transition-colors">BLOG</a>
-        <router-link
-          to="/contact"
+        <button
+          @click="scrollToSection('shine')"
           class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
         >
           LET'S TALK
-        </router-link>
+        </button>
       </nav>
     </div>
   </header>

@@ -5,6 +5,11 @@ import Work from './components/homepage-components/Work.vue';
 import Myself from './components/homepage-components/Myself.vue';
 import WebsiteShine from './components/homepage-components/WebsiteShine.vue';
 import Nav from './components/Nav.vue';
+import Contact_box from './components/homepage-components/Contact_box.vue';
+
+const navigateToGitHub = () => {
+  window.open('https://github.com/KasparTruu?tab=repositories', '_blank');
+};
 </script>
 
 <template>
@@ -22,10 +27,13 @@ import Nav from './components/Nav.vue';
 
       <!-- Content with Blurred Box -->
       <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
-        <div class=" bg-opacity-30 backdrop-blur-lg p-6 rounded-lg shadow-lg text-white max-w-lg">
+        <div class="bg-opacity-30 backdrop-blur-lg p-6 rounded-lg shadow-lg text-white max-w-lg">
           <h1 class="text-4xl font-bold mb-4">I'm Kaspar</h1>
           <p class="text-lg text-gray-300">Creative Developer & Designer</p>
-          <button class="mt-4 bg-gray-800 px-6 py-3 rounded-lg text-white hover:bg-gray-700 transition">
+          <button 
+            @click="navigateToGitHub"
+            class="mt-4 bg-gray-800 px-6 py-3 rounded-lg text-white hover:bg-gray-700 transition"
+          >
             View My Work
           </button>
         </div>
@@ -37,7 +45,8 @@ import Nav from './components/Nav.vue';
     <Work id="work" />
     <Clients />
     <Myself id="about" />
-    <WebsiteShine />
+    <WebsiteShine id="shine" />
+    <Contact_box />
   </div>
 </template>
 
