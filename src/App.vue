@@ -20,10 +20,6 @@ const navigateToGitHub = () => {
     <!-- Hero Section with Video Background -->
     <div class="relative min-h-screen" id="hero">
       <!-- Video Background -->
-      <video autoplay muted loop class="absolute top-0 left-0 w-full h-full object-cover z-0">
-        <source src="/src/assets/5409425_Coll_wavebreak_Mesh_1920x1080.mov" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
 
       <!-- Content with Blurred Box -->
       <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
