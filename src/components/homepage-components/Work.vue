@@ -1,114 +1,119 @@
 <template>
-    <!-- Work Showcase Section with Animated Steps and Connecting Lines -->
-    <section class="py-20 bg-gray-900" id="work">
-      <div class="container mx-auto">
-        <h3 class="text-3xl font-light mb-8 text-center text-gray-200">My Work</h3>
-  
-        <!-- Projects -->
-        <div class="grid md:grid-cols-3 gap-8 mb-12">
-          <div class="bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform">
-            <img src="/src/assets/88343009.png" alt="Project 1" class="w-full rounded-md mb-4" />
-            <h4 class="text-xl font-light">Project 1</h4>
-          </div>
-          <div class="bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform">
-            <img src="/src/assets/88343009.png" alt="Project 2" class="w-full rounded-md mb-4" />
-            <h4 class="text-xl font-light">Project 2</h4>
-          </div>
-          <div class="bg-gray-800 p-6 rounded-lg transform hover:scale-105 transition-transform">
-            <img src="/src/assets/88343009.png" alt="Project 3" class="w-full rounded-md mb-4" />
-            <h4 class="text-xl font-light">Project 3</h4>
-          </div>
-        </div>
-  
-        <!-- Work Steps Section with Connecting Lines -->
-        <h3 class="text-3xl font-light mb-8 text-center text-gray-200">How I Work</h3>
-  
-        <div class="relative">
-          <!-- Step Items -->
-          <div
-            v-for="(step, index) in steps"
-            :key="index"
-            :ref="`step-${index}`"
-            :class="stepClasses(index, step.inView)"
-            @mouseover="animateStep(index)"
+  <section class="py-20 bg-gray-900" id="work">
+    <div class="container mx-auto">
+      <h3 class="text-3xl font-light mb-8 text-center text-gray-200">My Work</h3>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+        <div
+          v-for="(project, index) in visibleProjects"
+          :key="project.id"
+          class="bg-gray-800 p-4 rounded-lg transform hover:scale-105 transition-transform"
+        >
+          <img
+            :src="project.image"
+            :alt="project.name"
+            class="w-full h-40 object-cover rounded-md mb-3"
+          />
+          <h4 class="text-lg font-light mb-2 text-gray-200">{{ project.name }}</h4>
+          <p
+            class="text-sm text-gray-400 mb-3"
+            v-html="project.description || 'No description available.'"
+          ></p>
+          <a
+            :href="project.html_url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block px-3 py-1 bg-blue-500 text-white font-medium text-sm rounded-lg hover:bg-blue-600 transition-colors"
           >
-            <div class="bg-gray-800 p-6 rounded-lg transform transition-transform md:w-2/5 text-center relative z-10">
-              <h4 class="text-2xl font-light mb-2">{{ step.title }}</h4>
-              <p class="text-gray-400">{{ step.description }}</p>
-            </div>
-  
-            <!-- Line Between Steps -->
-            <div v-if="index < steps.length - 1" class="absolute w-px h-16 bg-gray-500 left-1/2 transform -translate-x-1/2 top-full"></div>
-          </div>
+            View Project
+          </a>
         </div>
       </div>
-    </section>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        steps: [
-          { title: 'Step 1: Discovery', description: 'Understanding the project needs, goals, and target audience.', inView: false },
-          { title: 'Step 2: Planning', description: 'Mapping out project timeline, resources, and key milestones.', inView: false },
-          { title: 'Step 3: Design', description: 'Creating the initial designs, wireframes, and mockups for approval.', inView: false },
-          { title: 'Step 4: Development', description: 'Building and coding the website or application with clean code.', inView: false },
-          { title: 'Step 5: Launch & Support', description: 'Launching the project and providing ongoing support as needed.', inView: false },
-        ],
-      };
+      <div class="text-center">
+        <button
+          v-if="!showAll"
+          @click="showAll = true"
+          class="px-4 py-2 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-600 transition-colors"
+        >
+          Show More
+        </button>
+        <button
+          v-if="showAll"
+          @click="showAll = false"
+          class="px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors"
+        >
+          Hide
+        </button>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      projects: [],
+      showAll: false,
+    };
+  },
+  computed: {
+    visibleProjects() {
+      // Show the first 3 projects if `showAll` is false
+      return this.showAll ? this.projects : this.projects.slice(0, 3);
     },
-    mounted() {
-      this.initObserver();
-    },
-    methods: {
-      initObserver() {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              const index = entry.target.getAttribute('data-index');
-              if (entry.isIntersecting) {
-                this.steps[index].inView = true;
-                observer.unobserve(entry.target); // Stop observing once in view
-              }
-            });
-          },
-          { threshold: 0.1 }
+  },
+  created() {
+    this.fetchGitHubProjects();
+  },
+  methods: {
+    async fetchGitHubProjects() {
+      try {
+        const response = await axios.get(
+          "https://api.github.com/users/KasparTruu/repos"
         );
-  
-        this.steps.forEach((_, index) => {
-          const stepElement = this.$refs[`step-${index}`][0];
-          stepElement.setAttribute('data-index', index);
-          observer.observe(stepElement);
-        });
-      },
-      animateStep(index) {
-        this.steps[index].inView = true;
-      },
-      stepClasses(index, inView) {
-        return [
-          'flex flex-col mb-12 items-center relative',
-          index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse',
-          'transition-all duration-700 ease-in-out',
-          { 'opacity-100 translate-x-0': inView, 'opacity-0 translate-x-8': !inView },
-        ];
-      },
+
+        const projects = response.data.map((repo) => ({
+          id: repo.id,
+          name: repo.name,
+          html_url: repo.html_url,
+          image: `https://picsum.photos/seed/${repo.id}/200/300`, // Unique Picsum image per project
+        }));
+
+        // Fetch README.md content for each project
+        const projectsWithDescriptions = await Promise.all(
+          projects.map(async (project) => {
+            try {
+              const readmeResponse = await axios.get(
+                `https://api.github.com/repos/KasparTruu/${project.name}/readme`,
+                {
+                  headers: { Accept: "application/vnd.github.v3.raw" }, // Fetch raw README content
+                }
+              );
+              project.description = readmeResponse.data;
+            } catch (error) {
+              console.error(
+                `Error fetching README for ${project.name}:`,
+                error
+              );
+              project.description = "No description available.";
+            }
+            return project;
+          })
+        );
+
+        this.projects = projectsWithDescriptions;
+      } catch (error) {
+        console.error("Error fetching GitHub repositories:", error);
+      }
     },
-  };
-  </script>
-  
-  <style scoped>
-  .opacity-0 {
-    opacity: 0;
-  }
-  .translate-x-8 {
-    transform: translateX(4rem);
-  }
-  .opacity-100 {
-    opacity: 1;
-  }
-  .translate-x-0 {
-    transform: translateX(2);
-  }
-  </style>
-  
+  },
+};
+</script>
+
+<style scoped>
+.container {
+  max-width: 1200px;
+}
+</style>
