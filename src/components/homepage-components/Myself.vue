@@ -1,7 +1,7 @@
 <template>
   <section id="about" class="flex flex-col items-center justify-center min-h-screen text-center bg-black text-white">
-    <h1 class="text-5xl md:text-8xl font-serif italic">Kaspar Truu</h1>
-    <p class="text-lg md:text-2xl font-light italic text-gray-400 mt-4">
+    <h1 class="text-5xl md:text-8xl animate-fill-both animate-fade-up animate font-serif italic">Kaspar Truu</h1>
+    <p class="text-lg md:text-2xl font-light animate-fade-up animate-once italic text-gray-400 mt-4">
       A website that leaves a lasting impression!
     </p>
     <p class="text-gray-500 max-w-2xl mx-auto mt-6">

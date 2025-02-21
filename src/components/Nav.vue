@@ -14,7 +14,7 @@ function scrollToSection(sectionId) {
   <header class="bg-black p-4 fixed w-full top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-3xl font-light">Kaspar<span class="text-gray-400">.</span></h1>
-      <nav class="hidden md:flex space-x-6 text-gray-300">
+      <nav class="hidden md:flex space-x-6 animate-fade animate-once animate-fill-both text-gray-300">
         <a href="#services" class="hover:text-white transition-colors">SERVICES</a>
         <a href="#work" class="hover:text-white transition-colors">WORK</a>
         <a href="#about" class="hover:text-white transition-colors">ABOUT</a>

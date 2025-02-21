@@ -24,8 +24,8 @@ const navigateToGitHub = () => {
       <!-- Content with Blurred Box -->
       <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
         <div class="bg-opacity-30 backdrop-blur-lg p-6 rounded-lg shadow-lg text-white max-w-lg">
-          <h1 class="text-4xl font-bold mb-4">I'm Kaspar</h1>
-          <p class="text-lg text-gray-300">Creative Developer & Designer</p>
+          <h1 class="text-4xl animate-fade-up animate-once animate-duration-1000 font-bold mb-4">I'm Kaspar</h1>
+          <p class=" animate-fade-up animate-once animate-duration-1000  text-gray-300">Creative Developer & Designer</p>
           <button 
             @click="navigateToGitHub"
             class="mt-4 bg-gray-800 px-6 py-3 rounded-lg text-white hover:bg-gray-700 transition"
